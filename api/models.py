@@ -32,3 +32,20 @@ class Imovel(models.Model):
 
 class Contrato(models.Model):
     datainicio = models.DateField()
+    dataFim = models.DateField()
+    valor = models.DecimalField(max_digits=20,decimal_places=10)
+    imovel = models.ForeignKey(Imovel,on_delete=models.CASCADE,related_name="contrato")
+    locador = models.ForeignKey(Usuario,on_delete=models.CASCADE,related_name="locador")
+    locatario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="locatario")
+
+    def __str__(self):
+        return f"Contratando: {self.valor}"
+
+class Pagamento(models.Model):
+    dataPagamento = models.DateField()
+    valor = models.DecimalField(max_digits=20, decimal_places=10)
+    status = models.BooleanField(default=False)
+    contrato = models.ForeignKey(Contrato, on_delete=models.CASCADE,related_name="pagamento")
+
+    def __str__(self):
+        return f"Pagamento {self.id}"

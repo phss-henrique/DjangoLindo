@@ -4,7 +4,8 @@ from .models import Usuario, Imovel, Contrato, Pagamento
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields ='__all__'
+        fields = ['id', 'username', 'email', 'password']
+        extra_kwargs = {'password': {'write_only': True}}
 
 class ImovelSerializer(serializers.ModelSerializer):
     class Meta:
